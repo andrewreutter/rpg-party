@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { combineReducers, createStore } from 'redux'
-import logo from './logo.svg';
+import * as firebaseui from 'firebaseui'
+
 import './App.css';
 import {firedux, firestoreDocReducer, firestoreCollectionReducer, firestoreCollectionRefReducer} from './lib/firedux.jsx'
 
 import { JoinOrStartGame } from './lib/games/components/JoinOrStartGame.jsx'
+import { AuthWidget } from './lib/auth/components/AuthWidget.jsx'
 
 /* FIREBASE */
 
@@ -21,6 +23,12 @@ const config = {
 };
 firebase.initializeApp(config);
 const firestore = firebase.firestore()
+
+/* FIREBASE AUTH */
+
+var provider = new firebase.auth.GoogleAuthProvider();
+firebase.auth().useDeviceLanguage();
+
 
 /* REDUX */
 
@@ -42,6 +50,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <AuthWidget {...{firebase, provider}}/>
         <JoinOrStartGame/>
       </div>
     );
