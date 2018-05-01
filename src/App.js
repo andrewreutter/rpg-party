@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { combineReducers, createStore } from 'redux'
 import logo from './logo.svg';
 import './App.css';
-import {firedux, firestoreDocReducer, firestoreCollectionReducer} from './lib/firedux.jsx'
+import {firedux, firestoreDocReducer, firestoreCollectionReducer, firestoreCollectionRefReducer} from './lib/firedux.jsx'
 
 import { JoinOrStartGame } from './lib/games/components/JoinOrStartGame.jsx'
 
@@ -25,6 +25,7 @@ const firestore = firebase.firestore()
 /* REDUX */
 
 const APP_REDUCER = combineReducers({
+  gamesRef: firestoreCollectionRefReducer(firestore, 'games'),
   games: firestoreCollectionReducer(firestore, 'games'),
   currentGame: !document.location.pathname.indexOf('/games/')
     ? firestoreDocReducer(firestore, document.location.pathname)

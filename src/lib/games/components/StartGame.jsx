@@ -1,23 +1,21 @@
 import React from 'react'
-import { firebaseConnect } from '../../firedux.jsx'
+import { connect } from 'react-redux'
 import { BigButton } from '../../ui/components/Buttons'
 
-const StartGame = firebaseConnect(
-  (state, ownProps) => state.games,
-  (fireState, ownProps) => ({games:fireState}),
-  (fireRef, ownProps) => ({
-    start: gameProps => fireRef.add({
+const StartGame = connect(
+  (state, ownProps) => ({
+    start: gameProps => state.gamesRef.add({
       name: 'New Game',
       ...gameProps
     })
     .then(game=>{
       document.location = `/${game.path}`
     })
-  })
+  }),
 )(
-  ({games, start}) => (
+  ({start}) => (
     <BigButton onClick={()=>start({name:'My Game'})}>
-      START Game #{games.length}
+      START Game
     </BigButton>
   )
 )

@@ -14,6 +14,15 @@ function firestoreCollectionReducer(firestore, name) {
     snap => { const arr = []; snap.forEach(doc=>arr.push(doc.data())); return arr }
   )
 }
+function firestoreDocRefReducer(firestore, name) {
+  return (state=firestore.doc(name), action) => state
+}
+function firestoreCollectionRefReducer(firestore, name) {
+  return (state=firestore.collection(name), action) => state
+}
+function _firestoreRefReducer(ref) {
+  return (state, action) => ref
+}
 function _firestoreReducer(defaultValue, name, ref, snapToData) {
   ref.onSnapshot(snap => {
     const value = snap.empty ? defaultValue : snapToData(snap)
@@ -65,4 +74,12 @@ const firedux = {
   initializeApp: config => { ({store} = config) }
 }
 
-export {firedux, firestoreDocReducer, firestoreCollectionReducer, firebaseReducer, firebaseConnect}
+export {
+  firedux,
+  firestoreDocReducer,
+  firestoreDocRefReducer,
+  firestoreCollectionReducer,
+  firestoreCollectionRefReducer,
+  firebaseReducer,
+  firebaseConnect
+}
