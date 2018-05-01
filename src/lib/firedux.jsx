@@ -1,8 +1,16 @@
 import React from 'react';
 import { connect } from 'react-redux'
 
+
+function firestoreDocRefReducer(firestore, name) {
+  return (state=firestore.doc(name), action) => state
+}
+function firestoreCollectionRefReducer(firestore, name) {
+  return (state=firestore.collection(name), action) => state
+}
+
+
 function firestoreDocReducer(firestore, name) {
-  console.log({name, firestore})
   return _firestoreReducer(null, name,
     firestore.doc(name),
     snap => snap.data()
@@ -13,15 +21,6 @@ function firestoreCollectionReducer(firestore, name) {
     firestore.collection(name),
     snap => { const arr = []; snap.forEach(doc=>arr.push(doc.data())); return arr }
   )
-}
-function firestoreDocRefReducer(firestore, name) {
-  return (state=firestore.doc(name), action) => state
-}
-function firestoreCollectionRefReducer(firestore, name) {
-  return (state=firestore.collection(name), action) => state
-}
-function _firestoreRefReducer(ref) {
-  return (state, action) => ref
 }
 function _firestoreReducer(defaultValue, name, ref, snapToData) {
   ref.onSnapshot(snap => {
@@ -35,16 +34,16 @@ function _firestoreReducer(defaultValue, name, ref, snapToData) {
   )
 }
 
-function firebaseReducer(firebase, refName) {
-  const ref = firebase.ref(refName)
-  ref.on('value', snap => {
-    store.dispatch({type:'FIREBASE_VALUE', refName, value:snap.val() })
+function firebaseAuthReducer(firebase, provider) {
+  firebase.auth().onAuthStateChanged(user => {
+    store.dispatch({type:'SET_AUTH_USER', user})
   })
-  return (state={ready:false, ref, value:undefined, error:undefined}, action) => {
-    return (action.type === 'FIREBASE_VALUE' && action.refName === refName)
-      ? {...state, ready:true, value:action.value}
+  return (state={firebase, provider, user:firebase.auth().currentUser}, action) => (
+    console.log(action.type, action.user),
+    action.type === 'SET_AUTH_USER'
+      ? {...state, user:action.user}
       : state
-  }
+  )
 }
 
 function firebaseConnect(mapStateToFirebaseReducer, mapFireStateToProps, mapFireRefToProps) {
@@ -76,10 +75,12 @@ const firedux = {
 
 export {
   firedux,
+  firebaseConnect,
+
+  firebaseAuthReducer,
   firestoreDocReducer,
   firestoreDocRefReducer,
   firestoreCollectionReducer,
   firestoreCollectionRefReducer,
-  firebaseReducer,
-  firebaseConnect
+
 }

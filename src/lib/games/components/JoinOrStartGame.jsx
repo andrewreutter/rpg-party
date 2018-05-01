@@ -17,7 +17,6 @@ const JoinScreen = firebaseConnect(
   (fireRef, ownProps) => ({}),
 )(
   ({currentGame}) => (
-    console.log({currentGame}),
     <div>
       <header className="App-header">
         <h1 className="App-title">
