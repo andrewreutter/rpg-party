@@ -38,6 +38,9 @@ const APP_REDUCER = combineReducers({
   currentGame: !document.location.pathname.indexOf('/games/')
     ? firestoreDocReducer(firestore, document.location.pathname)
     : (state=null, action) => state,
+  // currentGameUsers: !document.location.pathname.indexOf('/games/')
+  //   ? firestoreDocReducer(firestore, `${document.location.pathname}/users`)
+  //   : (state=[], action) => state,
   documentPath: (state, action) => document.location.pathname,
 })
 const store = createStore(APP_REDUCER)

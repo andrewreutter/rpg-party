@@ -36,17 +36,24 @@ function _firestoreReducer(defaultValue, name, ref, snapToData) {
 
 function firebaseAuthReducer(firebase, provider) {
   firebase.auth().onAuthStateChanged(user => {
-    store.dispatch({type:'SET_AUTH_USER', user})
+    store.dispatch({
+      type:'SET_AUTH_USER',
+      user:firebaseUserToUser(user)
+    })
   })
-  return (state={firebase, provider, user:firebase.auth().currentUser}, action) => (
-    console.log(action.type, action.user),
+  return (state={firebase, provider, user:firebaseUserToUser(firebase.auth().currentUser)}, action) => (
     action.type === 'SET_AUTH_USER'
       ? {...state, user:action.user}
       : state
   )
+  function firebaseUserToUser(fbUser) {
+    if (!fbUser) return null;
+    const {email, displayName, photoURL} = fbUser
+    return {email, displayName, photoURL}
+  }
 }
 
-function firebaseConnect(mapStateToFirebaseReducer, mapFireStateToProps, mapFireRefToProps) {
+function firebaseConnect(mapStateToFirebaseReducer, mapFireStateToProps=()=>({}), mapFireRefToProps=()=>({})) {
   const connectHOC = () => {
     return connect(
       (state, ownProps) => {
