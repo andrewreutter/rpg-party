@@ -3,14 +3,9 @@ import { connect } from 'react-redux'
 
 import { BigButton } from '../../ui/components/Buttons'
 import {firebaseConnect} from '../../firedux.jsx'
+import { authHOC } from '../../auth/components/authHOC.jsx'
+import { authedClickHOC } from '../../auth/components/authedClickHOC.jsx'
 
-const firebase = require("firebase");
-
-const addUser = connect(
-  (state, action) => ({
-    user:state.auth.user
-  })
-)
 const addGame = firebaseConnect(
   (state, ownProps) => state.currentGame,
   (fireState, ownProps) => ({
@@ -21,17 +16,21 @@ const addGame = firebaseConnect(
       // const child = fireRef.collection('users')
       // child.add(user)
       game.users = (game.users || []).concat([user])
-      console.log('JGXXX', {game, user, fireRef})
-      fireRef.set(game).then(res=>console.log('resXXX', res))
+      // console.log('JGXXX', {game, user, fireRef})
+      fireRef.set(game).then(res=>console.log('resXXX', game.users))
     } // TODO: something
   })
 )
 
-const JoinGame = addUser(addGame(
-  ({user, game, join}) => ( game &&
-    <BigButton onClick={()=>join(game, user)}>
+const AuthedClickBigButton = authedClickHOC(
+  ({onClick, ...rest}) => (console.log({onClick, rest}), <BigButton onClick={onClick} {...rest}/>)
+)
+
+const JoinGame = authHOC(addGame(
+  ({auth, game, join}) => ( game &&
+    <AuthedClickBigButton onClick={()=>join(game, auth.user)}>
       JOIN {game.name}
-    </BigButton>
+    </AuthedClickBigButton>
   )
 ))
 JoinGame.defaultProps = {}
