@@ -49,7 +49,8 @@ function firebaseAuthReducer(firebase, provider) {
   function firebaseUserToUser(fbUser) {
     if (!fbUser) return null;
     const {email, displayName, photoURL} = fbUser
-    return {email, displayName, photoURL}
+    const {providerId} = provider
+    return { providerId, email, displayName, photoURL }
   }
 }
 

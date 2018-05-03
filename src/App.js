@@ -27,6 +27,7 @@ const firestore = firebase.firestore()
 /* FIREBASE AUTH */
 
 var provider = new firebase.auth.GoogleAuthProvider();
+// var provider = new firebase.auth.FacebookAuthProvider();
 firebase.auth().useDeviceLanguage();
 
 

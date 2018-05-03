@@ -13,13 +13,11 @@ const withGame = Component => authHOC(
     }),
     (fireRef, ownProps) => ({
       join: (game) => {
-        // const child = fireRef.collection('users')
-        // child.add(user)
-        user = window.store.getState().auth.user // TODO: ICK! But data was stale in ownProps.auth.user
+        const user = window.store.getState().auth.user // TODO: ICK! But data was stale in ownProps.auth.user
         game.users = (game.users || []).concat([user])
         // console.log('JGXXX', {game, user, fireRef})
         fireRef.set(game)
-      } // TODO: something
+      }
     })
   )(Component)
 )

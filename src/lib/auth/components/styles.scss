@@ -1,0 +1,48 @@
+.UserWidgets {
+  &:hover {
+    .UserWidget {
+      &:hover {
+        opacity: 1.0;
+      }
+      opacity: 0.6;
+      //
+      // &:hover: {
+      //   opacity: 1.0;
+      // }
+    }
+  }
+}
+.UserWidget {
+  display: block;
+  color:inherit; text-decoration: inherit;
+  width: 100%;
+  text-align: center;
+
+  clear:both;
+
+  .UserWidget__clickable {
+    color:inherit; text-decoration: inherit;
+    text-align: left;
+    display: inline-block;
+    height:6em;
+    padding: 1em;
+
+    img {
+      height:100%;
+      border-radius: 100%;
+      float: left;
+    }
+  }
+
+  &__name {
+    display: inline-block;
+    height: 100%;
+    line-height: 1.5em;
+    padding: 1.25em;
+
+    > span {
+      vertical-align: center;
+    }
+  }
+
+}
