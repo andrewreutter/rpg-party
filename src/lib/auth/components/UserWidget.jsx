@@ -1,18 +1,32 @@
 import React from 'react'
 import './styles.css';
 
-const UserWidget = ({user}) => (
+const UserWidget = ({user}) => ( !user ? null : // TODO: ick
   <div className="UserWidget">
-    { user && user.photoURL &&
-      <img src={user.photoURL}/>
-    }
-    <div className="UserWidget__name">
-      { user
-        ? <a href={`mailto:${user.email}`}>{user.displayName}</a>
-        : 'Who knows?'
+    <a href={`/users/${user.id}`} className="UserWidget__clickable">
+      { user.photoURL &&
+        <img src={user.photoURL}/>
       }
-    </div>
+      <div className="UserWidget__name">
+        <span>
+          {user.displayName}
+          <br/>
+          {user.email}
+        </span>
+      </div>
+    </a>
   </div>
 )
 
-export { UserWidget }
+const UserWidgets = ({users}) => (
+  <div className="UserWidgets">
+  { users.map((user, i) => (
+      <div key={`user${i}`}>
+        <UserWidget {...{user}}/>
+      </div>
+    ))
+  }
+  </div>
+)
+
+export { UserWidget, UserWidgets }

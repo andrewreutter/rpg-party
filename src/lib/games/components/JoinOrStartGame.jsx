@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { firebaseConnect } from '../../firedux.jsx'
 import { StartGame } from './StartGame.jsx'
 import { JoinGame } from './JoinGame.jsx'
-import { UserWidget } from '../../auth/components/UserWidget'
+import { UserWidgets } from '../../auth/components/UserWidget'
 
 const JoinOrStartGame = connect(
   (state, ownProps) => ({ currentGame:state.currentGame })
@@ -18,7 +18,7 @@ const JoinScreen = firebaseConnect(
   (fireRef, ownProps) => ({}),
 )(
   ({currentGame}) => (
-    <div>
+    <div className="JoinOrStartGame">
       <header className="App-header">
         <h1 className="App-title">
           { currentGame.name }
@@ -30,10 +30,7 @@ const JoinScreen = firebaseConnect(
         {''+document.location}
       </h1>
       <JoinGame game={currentGame}/>
-      { (currentGame.users || []).map((user, i) => (
-          <UserWidget key={`user${i}`} {...{user}}/>
-        ))
-      }
+      <UserWidgets users={currentGame.users || []}/>
     </div>
   )
 )

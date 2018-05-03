@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { combineReducers, createStore } from 'redux'
 
 import './App.css';
-import {firedux, firebaseAuthReducer, firestoreDocReducer, firestoreCollectionReducer, firestoreCollectionRefReducer} from './lib/firedux.jsx'
+import {firedux, firestoreDocReducer, firestoreCollectionReducer, firestoreCollectionRefReducer} from './lib/firedux.jsx'
+import { makeAuthReducer } from './lib/auth/reducers.jsx'
 
 import { JoinOrStartGame } from './lib/games/components/JoinOrStartGame.jsx'
 import { AuthWidget } from './lib/auth/components/AuthWidget.jsx'
@@ -32,7 +33,7 @@ firebase.auth().useDeviceLanguage();
 /* REDUX */
 
 const APP_REDUCER = combineReducers({
-  auth: firebaseAuthReducer(firebase, provider),
+  auth: makeAuthReducer(firebase, provider),
   gamesRef: firestoreCollectionRefReducer(firestore, 'games'),
   games: firestoreCollectionReducer(firestore, 'games'),
   currentGame: !document.location.pathname.indexOf('/games/')

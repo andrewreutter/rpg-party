@@ -1,26 +1,15 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { authHOC } from './authHOC.jsx'
 
-const AuthWidget = connect(
-  (state, ownProps) => ({
-    user: state.auth.user,
-    signOut: () => {
-      state.auth.firebase.auth().signOut()
-    },
-    signIn: () => {
-      state.auth.firebase.auth().signInWithPopup(state.auth.provider)
-      .catch(function(error) {
-      })
-    }
-  })
-)(
-  ({user, signIn, signOut}) => {
+const AuthWidget = authHOC(
+  ({auth}) => {
     return (
-      user
-        ? <div onClick={signOut}>
-            { user.email }
+      auth.user
+        ? <div onClick={auth.signOut}>
+            { auth.user.email }
           </div>
-        : <div onClick={signIn}>
+        : <div onClick={auth.signIn}>
             SIGN IN
           </div>
     )
