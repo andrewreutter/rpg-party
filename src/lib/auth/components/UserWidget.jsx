@@ -20,12 +20,16 @@ const UserWidget = ({user}) => ( !user ? null : // TODO: ick
 
 const UserWidgets = ({users}) => (
   <div className="UserWidgets">
-  { users.map((user, i) => (
-      <div key={`user${i}`}>
-        <UserWidget {...{user}}/>
-      </div>
-    ))
-  }
+    <h1>
+      { users.length } Players
+      ({ users.length - users.filter(u=>!!u).length} null)
+    </h1>
+    { users.map((user, i) => (
+        <div key={`user${i}`}>
+          <UserWidget {...{user}}/>
+        </div>
+      ))
+    }
   </div>
 )
 
