@@ -8,7 +8,7 @@ import { UserWidgets } from '../../auth/components/UserWidget'
 const JoinOrStartGame = connect(
   (state, ownProps) => ({ currentGame:state.currentGame })
 )(
-  ({currentGame}) => currentGame ? <JoinScreen/> : <StartScreen/>
+  ({currentGame}) => currentGame.ready ? <JoinScreen/> : <StartScreen/>
 )
 JoinOrStartGame.defaultProps = {}
 

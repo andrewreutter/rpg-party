@@ -59,7 +59,6 @@ function firebaseConnect(mapStateToFirebaseReducer, mapFireStateToProps=()=>({})
     return connect(
       (state, ownProps) => {
         const fireState = mapStateToFirebaseReducer(state)
-        //console.log('', {state, fireState, mapStateToFirebaseReducer})
         return {
           fireReady: fireState.ready,
           fireStateProps: !fireState.ready ? undefined : mapFireStateToProps(fireState.value, ownProps),
