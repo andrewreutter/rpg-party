@@ -6,9 +6,9 @@ import { JoinGame } from './JoinGame.jsx'
 import { UserWidgets } from '../../auth/components/UserWidget'
 
 const JoinOrStartGame = connect(
-  (state, ownProps) => ({ currentGame:state.currentGame })
+  (state, ownProps) => ({ hasCurrentGame:state.hasCurrentGame })
 )(
-  ({currentGame}) => currentGame.ready ? <JoinScreen/> : <StartScreen/>
+  ({hasCurrentGame}) => hasCurrentGame ? <JoinScreen/> : <StartScreen/>
 )
 JoinOrStartGame.defaultProps = {}
 
@@ -47,7 +47,6 @@ const StartScreen = connect(
         </h1>
       </header>
       <StartGame/>
-      <JoinGame/>
     </div>
   )
 )

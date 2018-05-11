@@ -33,13 +33,15 @@ firebase.auth().useDeviceLanguage();
 
 /* REDUX */
 
+const hasCurrentGame = () => !document.location.pathname.indexOf('/games/')
 const APP_REDUCER = combineReducers({
   auth: makeAuthReducer(firebase, provider),
   gamesRef: firestoreCollectionRefReducer(firestore, 'games'),
   games: firestoreCollectionReducer(firestore, 'games'),
-  currentGame: !document.location.pathname.indexOf('/games/')
+  hasCurrentGame,
+  currentGame: hasCurrentGame()
     ? firestoreDocReducer(firestore, document.location.pathname)
-    : (state={ready:false}, action) => state,
+    : (state={}, action) => state,
   documentPath: (state, action) => document.location.pathname,
 })
 const store = createStore(APP_REDUCER)
