@@ -1,15 +1,17 @@
 .Page {
 
-  > .H1, > .H2 {
+  > .H1, > .H2, > .Content {
     padding: .3em .5em;
   }
 
   > .H1 {
     font-size: 2em;
     background-color: #aad;
+    position: fixed;; top: 0; width:100%;
   }
 
   > .H2 {
+    margin-top: 1.5em;
     font-size: 2.5em;
     text-align: center;
   }
@@ -23,7 +25,7 @@
     button.BigButton {
       float: right;
       font-size: 2em;
-      background-color: #daa;
+      background-color: #faa;
     }
 
   }

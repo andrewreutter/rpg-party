@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { BigButton } from '../../ui/components/Buttons'
+import { authedClickHOC } from '../../auth/components/authedClickHOC.jsx'
 
 const StartGame = connect(
   (state, ownProps) => ({
@@ -14,10 +15,14 @@ const StartGame = connect(
   }),
 )(
   ({start}) => (
-    <BigButton onClick={()=>start({name:'My Game'})}>
+    <AuthedClickBigButton onClick={()=>start({name:'My Game'})}>
       START Game
-    </BigButton>
+    </AuthedClickBigButton>
   )
+)
+
+const AuthedClickBigButton = authedClickHOC(
+  ({onClick, ...rest}) => <BigButton onClick={onClick} {...rest}/>
 )
 
 export { StartGame }
