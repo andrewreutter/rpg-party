@@ -5,10 +5,10 @@ const AuthWidget = authHOC(
   ({auth}) => {
     return (
       auth.user
-        ? <div onClick={auth.signOut}>
+        ? <div className="AuthWidget" onClick={auth.signOut}>
             { auth.user.email }
           </div>
-        : <div onClick={auth.signIn}>
+        : <div className="AuthWidget" onClick={auth.signIn}>
             SIGN IN
           </div>
     )

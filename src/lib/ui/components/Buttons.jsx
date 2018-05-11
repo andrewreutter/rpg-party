@@ -6,8 +6,8 @@ const Button = ({...buttonProps}) => (
 
 const BigButton = ({children, ...buttonProps}) => (
   <div>
-    <Button style={{width:'100%'}} {...buttonProps}>
-      <h1>{children}</h1>
+    <Button className="BigButton" {...buttonProps}>
+      {children}
     </Button>
   </div>
 )

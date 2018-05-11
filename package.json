@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.5",
     "firebase": "^4.12.1",
     "firebaseui": "^2.7.0",
     "node-sass-chokidar": "^1.2.2",

@@ -1,0 +1,39 @@
+.Page {
+
+  > .H1, > .H2 {
+    padding: .3em .5em;
+  }
+
+  > .H1 {
+    font-size: 2em;
+    background-color: #aad;
+  }
+
+  > .H2 {
+    font-size: 2.5em;
+    text-align: center;
+  }
+
+  > .Footer {
+    position: fixed; left:0; bottom: 0; width: 100%;
+    padding: 1em;
+    border-top: 1px solid #555;
+    background-color: white;
+
+    button.BigButton {
+      float: right;
+      font-size: 2em;
+      background-color: #daa;
+    }
+
+  }
+
+  .AuthWidget {
+    position: absolute; right:1em; top:1em;
+  }
+
+  .UserWidget {
+    display: block;
+    text-align: center;
+  }
+}

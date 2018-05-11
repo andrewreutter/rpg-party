@@ -6,7 +6,9 @@ const authedClickHOC = Component => authHOC(
     return <Component onClick={wrappedOnClick} {...rest}/>
     function wrappedOnClick(e) {
       function callOriginal() { return onClick(e) }
-      return auth.isSignedIn ? callOriginal() : auth.signIn().then(()=>setTimeout(callOriginal))
+      return auth.isSignedIn
+        ? callOriginal()
+        : auth.signIn().then(()=>setTimeout(callOriginal))
     }
   }
 )

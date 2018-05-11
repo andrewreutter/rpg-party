@@ -5,8 +5,8 @@ import './App.css';
 import {firedux, firestoreDocReducer, firestoreCollectionReducer, firestoreCollectionRefReducer} from './lib/firedux.jsx'
 import { makeAuthReducer } from './lib/auth/reducers.jsx'
 
-import { JoinOrStartGame } from './lib/games/components/JoinOrStartGame.jsx'
-import { AuthWidget } from './lib/auth/components/AuthWidget.jsx'
+import { GamePage } from './lib/pages/components/GamePage.jsx'
+import { StartPage } from './lib/pages/components/StartPage.jsx'
 
 /* FIREBASE */
 
@@ -50,12 +50,13 @@ firedux.initializeApp({store})
 Object.assign(window, {store, firestore, firebase})
 console.log('assigned to window', {store, firestore, firebase})
 
+// TODO: get react-router?
+const Page = hasCurrentGame() ? GamePage : StartPage;
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <AuthWidget/>
-        <JoinOrStartGame/>
+        <Page/>
       </div>
     );
   }
